@@ -1,0 +1,6 @@
+controller_node:
+  ros__parameters:
+    max_linear_speed: 0.2
+    max_angular_speed: 0.1
+    twist_frame_id: "base_link"
+    joy_stick_buffer: 2000

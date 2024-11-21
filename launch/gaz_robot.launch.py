@@ -17,6 +17,12 @@ def generate_launch_description():
     'gaz_brigde.yaml'
     )
 
+    rc_params = os.path.join(
+    get_package_share_directory(package_name),
+    'params',
+    'remote_control.yaml'
+    )
+
     start_gazebo_ros_bridge_cmd = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
@@ -55,6 +61,13 @@ def generate_launch_description():
                                    '-name', 'tank',
                                    "-z","0.3"],
                         output='screen')
+    
+     # Run the remote controller node
+    controller_node = Node(package='tank',
+                        executable='controller_node',  # The executable to run (C++ node)
+                        name='controller_node',  # The name of the node
+                        parameters=[rc_params],
+                        output='screen')
 
     # Process the URDF file
     pkg_path = os.path.join(get_package_share_directory(package_name))
@@ -74,7 +87,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         start_gazebo_ros_bridge_cmd,
-        # start_gazebo_ros_image_bridge_cmd
+        controller_node,
         world_arg,
         spawn_entity,
         gazebo,

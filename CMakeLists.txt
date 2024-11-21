@@ -26,14 +26,15 @@ target_include_directories(controller_node PRIVATE include/tank)
 # Link libraries if necessary (e.g., SDL2, etc.)
 target_link_libraries(controller_node ${SDL2_LIBRARIES})
 
+# Install directories (config, params, description, etc.)
+install(
+  DIRECTORY config params description launch worlds
+  DESTINATION share/${PROJECT_NAME}
+)
+
 # Install the controller_node executable
 install(TARGETS controller_node
   DESTINATION lib/${PROJECT_NAME}
-)
-
-# Install directories (config, params, description, etc.)
-install(DIRECTORY config/ params/ description/ launch/ worlds/
-  DESTINATION share/${PROJECT_NAME}
 )
 
 

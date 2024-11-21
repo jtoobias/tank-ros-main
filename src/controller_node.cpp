@@ -5,30 +5,32 @@ void ControllerNode::controller_update_callback(void){
         // Update all values from the controller
     controller.update_values();
     // std::cout << "Hih" << std::endl;
-    geometry_msgs::msg::TwistStamped twist_stamped = controller_to_twiststamped();
-    twist_publisher_->publish(twist_stamped);
+    geometry_msgs::msg::Twist twist = controller_to_twist();
+
+		// RCLCPP_INFO(this->get_logger(), "Linear_speed: %f",twist.linear.x);
+    twist_publisher_->publish(twist);
 }
 
     // Create function to handle
-geometry_msgs::msg::TwistStamped ControllerNode::controller_to_twiststamped(void){
-    geometry_msgs::msg::TwistStamped twist_stamped;
+geometry_msgs::msg::Twist ControllerNode::controller_to_twist(void){
+    geometry_msgs::msg::Twist twist;
     int16_t joy_linear = controller.get_y_right_joy_value();
-    int16_t joy_angular = reverse_signed_int16(controller.get_x_right_joy_value());
+    int16_t joy_angular = controller.get_x_right_joy_value();
         // Convert right joy into throttle for linear and angular speeds
     if ((joy_linear >= joy_buffer) || (joy_linear <= -joy_buffer)){
-			twist_stamped.twist.linear.x = (joy_linear/std::abs(joy_linear))*((double)(std::abs(joy_linear)-joy_buffer)/(JOY_AXIS_LIMIT-joy_buffer))*max_linear_speed;
+			twist.linear.x = (joy_linear/std::abs(joy_linear))*((double)(std::abs(joy_linear)-joy_buffer)/(JOY_AXIS_LIMIT-joy_buffer))*max_linear_speed;
     } else {
-			twist_stamped.twist.linear.x = 0.0;
+			twist.linear.x = 0.0;
     }
         // Convert right joy into throttle for linear and angular speeds
     if ((joy_angular >= joy_buffer) || (joy_angular <= -joy_buffer)){
-			twist_stamped.twist.angular.z = (joy_angular/std::abs(joy_angular))*(((double)std::abs(joy_angular)-joy_buffer)/(JOY_AXIS_LIMIT-joy_buffer))*max_angular_speed;
+			twist.angular.z = (joy_angular/std::abs(joy_angular))*(((double)std::abs(joy_angular)-joy_buffer)/(JOY_AXIS_LIMIT-joy_buffer))*max_angular_speed;
     } else {
-			twist_stamped.twist.angular.z = 0.0;
+			twist.angular.z = 0.0;
     }
-    twist_stamped.header.stamp = clock->now();
-    twist_stamped.header.frame_id = frame_id;
-    return twist_stamped;
+    // twist_stamped.header.stamp = clock->now();
+    // twist_stamped.header.frame_id = frame_id;
+    return twist;
 }
 
 int main(int argc, char * argv[])
