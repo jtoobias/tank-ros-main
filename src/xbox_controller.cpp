@@ -63,35 +63,119 @@ bool Controller::remove_controller(void){
 void Controller::update_values(void){
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_CONTROLLERBUTTONDOWN) {
-            std::cout << "Button pressed: " 
-                        << (int)event.cbutton.button << std::endl;
+            switch (event.cbutton.button){
+                case BUTTON_A_NUM:
+                    button_a = true;
+                    break;
+                case BUTTON_B_NUM:
+                    button_b = true;
+                    break;
+                case BUTTON_X_NUM:
+                    button_x = true;
+                    break;
+                case BUTTON_Y_NUM:
+                    button_y = true;
+                    break;
+                case BUTTON_BACK_NUM:
+                    button_back = true;
+                    break;
+                case BUTTON_CENTER_NUM:
+                    button_center = true;
+                    break;
+                case BUTTON_START_NUM:
+                    button_start = true;
+                    break;
+                case BUTTON_LEFT_JOY_NUM:
+                    button_left_joy = true;
+                    break;
+                case BUTTON_RIGHT_JOY_NUM:
+                    button_right_joy = true;
+                    break;
+                case BUTTON_LEFT_BUMPER_NUM:
+                    button_lbumper = true;
+                    break;
+                case BUTTON_RIGHT_BUMPER_NUM:
+                    button_rbumper = true;
+                    break;
+                case BUTTON_DPAD_UP_NUM:
+                    button_dpad_up = true;
+                    break;
+                case BUTTON_DPAD_DOWN_NUM:
+                    button_dpad_down = true;
+                    break;
+                case BUTTON_DPAD_LEFT_NUM:
+                    button_dpad_left = true;
+                    break;
+                case BUTTON_DPAD_RIGHT_NUM:
+                    button_dpad_right = true;
+                    break;
+            }
         } else if (event.type == SDL_CONTROLLERBUTTONUP) {
-            std::cout << "Button released: " 
-                        << (int)event.cbutton.button << std::endl;
+            switch (event.cbutton.button){
+                case BUTTON_A_NUM:
+                    button_a = false;
+                    break;
+                case BUTTON_B_NUM:
+                    button_b = false;
+                    break;
+                case BUTTON_X_NUM:
+                    button_x = false;
+                    break;
+                case BUTTON_Y_NUM:
+                    button_y = false;
+                    break;
+                case BUTTON_BACK_NUM:
+                    button_back = false;
+                    break;
+                case BUTTON_CENTER_NUM:
+                    button_center = false;
+                    break;
+                case BUTTON_START_NUM:
+                    button_start = false;
+                    break;
+                case BUTTON_LEFT_JOY_NUM:
+                    button_left_joy = false;
+                    break;
+                case BUTTON_RIGHT_JOY_NUM:
+                    button_right_joy = false;
+                    break;
+                case BUTTON_LEFT_BUMPER_NUM:
+                    button_lbumper = false;
+                    break;
+                case BUTTON_RIGHT_BUMPER_NUM:
+                    button_rbumper = false;
+                    break;
+                case BUTTON_DPAD_UP_NUM:
+                    button_dpad_up = false;
+                    break;
+                case BUTTON_DPAD_DOWN_NUM:
+                    button_dpad_down = false;
+                    break;
+                case BUTTON_DPAD_LEFT_NUM:
+                    button_dpad_left = false;
+                    break;
+                case BUTTON_DPAD_RIGHT_NUM:
+                    button_dpad_right = false;
+                    break;
+            }
         } else if (event.type == SDL_CONTROLLERAXISMOTION) {
             switch (event.caxis.axis) {
                 case SDL_CONTROLLER_AXIS_LEFTX:
-                    std::cout << "Left stick X: " << event.caxis.value << std::endl;
                     left_joy_x_value = event.caxis.value;
                     break;
                 case SDL_CONTROLLER_AXIS_LEFTY:
-                    std::cout << "Left stick Y: " << event.caxis.value << std::endl;
                     left_joy_y_value = event.caxis.value;
                     break;
                 case SDL_CONTROLLER_AXIS_RIGHTX:
-                    std::cout << "Right stick X: " << event.caxis.value << std::endl;
                     right_joy_x_value = event.caxis.value;
                     break;
                 case SDL_CONTROLLER_AXIS_RIGHTY:
-                    std::cout << "Right stick Y: " << event.caxis.value << std::endl;
                     right_joy_x_value = event.caxis.value;
                     break;
                 case SDL_CONTROLLER_AXIS_TRIGGERLEFT:
-                    std::cout << "Left trigger: " << event.caxis.value << std::endl;
                     left_trigger_value = event.caxis.value;
                     break;
                 case SDL_CONTROLLER_AXIS_TRIGGERRIGHT:
-                    std::cout << "Right trigger: " << event.caxis.value << std::endl;
                     right_trigger_value = event.caxis.value;
                     break;
             }

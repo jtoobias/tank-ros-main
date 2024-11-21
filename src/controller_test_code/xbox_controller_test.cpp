@@ -20,6 +20,8 @@ int main() {
     Controller xbox; 
     while (sigInterrupt) {
         xbox.update_values();
+        int a = xbox.is_button_A_pressed();
+        std::cout << a << std::endl;
     }
     return 0;
 }

@@ -1,21 +1,21 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 
-constexpr int8_t BUTTON_A_NUM = 0; 
-constexpr int8_t BUTTON_B_NUM = 1; 
-constexpr int8_t BUTTON_X_NUM = 2; 
-constexpr int8_t BUTTON_Y_NUM = 3; 
-constexpr int8_t BUTTON_BACK_NUM = 4; 
-constexpr int8_t BUTTON_CENTER_NUM = 5; 
-constexpr int8_t BUTTON_START_NUM = 6; 
-constexpr int8_t BUTTON_LEFT_JOY_NUM = 7; 
-constexpr int8_t BUTTON_RIGHT_JOY_NUM = 8;
-constexpr int8_t BUTTON_LEFT_BUMPER_NUM = 9; 
-constexpr int8_t BUTTON_RIGHT_BUMPER_NUM = 10;
-constexpr int8_t BUTTON_DPAD_UP_NUM = 11; 
-constexpr int8_t BUTTON_DPAD_DOWN_NUM = 12; 
-constexpr int8_t BUTTON_DPAD_LEFT_NUM = 13; 
-constexpr int8_t BUTTON_DPAD_RIGHT_NUM = 14; 
+constexpr uint8_t BUTTON_A_NUM = 0; 
+constexpr uint8_t BUTTON_B_NUM = 1; 
+constexpr uint8_t BUTTON_X_NUM = 2; 
+constexpr uint8_t BUTTON_Y_NUM = 3; 
+constexpr uint8_t BUTTON_BACK_NUM = 4; 
+constexpr uint8_t BUTTON_CENTER_NUM = 5; 
+constexpr uint8_t BUTTON_START_NUM = 6; 
+constexpr uint8_t BUTTON_LEFT_JOY_NUM = 7; 
+constexpr uint8_t BUTTON_RIGHT_JOY_NUM = 8;
+constexpr uint8_t BUTTON_LEFT_BUMPER_NUM = 9; 
+constexpr uint8_t BUTTON_RIGHT_BUMPER_NUM = 10;
+constexpr uint8_t BUTTON_DPAD_UP_NUM = 11; 
+constexpr uint8_t BUTTON_DPAD_DOWN_NUM = 12; 
+constexpr uint8_t BUTTON_DPAD_LEFT_NUM = 13; 
+constexpr uint8_t BUTTON_DPAD_RIGHT_NUM = 14; 
 
 class Controller
 {
