@@ -44,8 +44,8 @@ bool Controller::init_controller(void){
         return false;
     }
 
-    controller = SDL_GameControllerOpen(0);
-    if (!controller) {
+    controller_ptr = SDL_GameControllerOpen(0);
+    if (!controller_ptr) {
         std::cerr << "Failed to open controller: " << SDL_GetError() << std::endl;
         SDL_Quit();
         return false;
@@ -54,7 +54,7 @@ bool Controller::init_controller(void){
 }
 
 bool Controller::remove_controller(void){
-    SDL_GameControllerClose(controller);
+    SDL_GameControllerClose(controller_ptr);
     SDL_Quit();
     return true;
 }
@@ -164,13 +164,13 @@ void Controller::update_values(void){
                     left_joy_x_value = event.caxis.value;
                     break;
                 case SDL_CONTROLLER_AXIS_LEFTY:
-                    left_joy_y_value = event.caxis.value;
+                    left_joy_y_value = reverse_sign(event.caxis.value);
                     break;
                 case SDL_CONTROLLER_AXIS_RIGHTX:
                     right_joy_x_value = event.caxis.value;
                     break;
                 case SDL_CONTROLLER_AXIS_RIGHTY:
-                    right_joy_x_value = event.caxis.value;
+                    right_joy_y_value = reverse_sign(event.caxis.value);
                     break;
                 case SDL_CONTROLLER_AXIS_TRIGGERLEFT:
                     left_trigger_value = event.caxis.value;

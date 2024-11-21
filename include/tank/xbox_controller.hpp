@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SDL2/SDL.h>
+#include <limits.h>
 
 constexpr uint8_t BUTTON_A_NUM = 0; 
 constexpr uint8_t BUTTON_B_NUM = 1; 
@@ -16,6 +17,10 @@ constexpr uint8_t BUTTON_DPAD_UP_NUM = 11;
 constexpr uint8_t BUTTON_DPAD_DOWN_NUM = 12; 
 constexpr uint8_t BUTTON_DPAD_LEFT_NUM = 13; 
 constexpr uint8_t BUTTON_DPAD_RIGHT_NUM = 14; 
+
+
+constexpr int16_t JOY_AXIS_LIMIT = std::numeric_limits<int16_t>::max();
+constexpr int16_t TRIGGER_LIMIT = std::numeric_limits<int16_t>::max();
 
 class Controller
 {
@@ -47,17 +52,18 @@ class Controller
         bool is_joy_right_pressed() const { return button_right_joy; }
         bool is_joy_left_pressed() const  { return button_left_joy; }
 
-        bool get_x_right_joy_value()  const   { return right_joy_x_value; }
-        bool get_y_right_joy_value()  const   { return right_joy_y_value; }
-        bool get_x_left_joy_value() const  { return left_joy_x_value; }
-        bool get_y_left_joy_value() const  { return left_joy_y_value; }
-        bool get_right_trigger_value() const { return right_trigger_value; }
-        bool get_left_trigger_value() const  { return left_trigger_value; }
+        int16_t get_x_right_joy_value()  const   { return right_joy_x_value; }
+        int16_t get_y_right_joy_value()  const   { return right_joy_y_value; }
+        int16_t get_x_left_joy_value() const  { return left_joy_x_value; }
+        int16_t get_y_left_joy_value() const  { return left_joy_y_value; }
+        int16_t get_right_trigger_value() const { return right_trigger_value; }
+        int16_t get_left_trigger_value() const  { return left_trigger_value; }
+
 
     private:
 
         SDL_Event event;
-        SDL_GameController* controller;
+        SDL_GameController* controller_ptr;
         // Variables for each button
         bool button_a;
         bool button_b;
@@ -82,4 +88,11 @@ class Controller
 
         int16_t right_trigger_value;
         int16_t left_trigger_value;
+
+        int16_t reverse_sign(int16_t num) {
+            if (num == -32768) {
+                return 32767;  // Special case for -32768
+            }
+            return -num;
+        }
 };

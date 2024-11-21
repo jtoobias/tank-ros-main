@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Add the include directory to the compiler's search path
-include_directories(~/ros2_ws/src/tank/include)
+include_directories(~/ros2_ws/src/tank/include/tank)
 
 find_package(SDL2 REQUIRED)
 

@@ -7,14 +7,36 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-install(
-  DIRECTORY config params description launch worlds
+find_package(SDL2 REQUIRED)
+
+include_directories(${SDL2_INCLUDE_DIRS})
+
+add_executable(controller_node src/controller_node.cpp src/xbox_controller.cpp)
+ament_target_dependencies(controller_node rclcpp std_msgs geometry_msgs)
+
+# Add the include directory to the compiler's search path
+target_include_directories(controller_node PRIVATE include/tank)
+# Link libraries if necessary (e.g., SDL2, etc.)
+target_link_libraries(controller_node ${SDL2_LIBRARIES})
+
+# Install the controller_node executable
+install(TARGETS controller_node
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+# Install directories (config, params, description, etc.)
+install(DIRECTORY config/ params/ description/ launch/ worlds/
   DESTINATION share/${PROJECT_NAME}
 )
+
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
