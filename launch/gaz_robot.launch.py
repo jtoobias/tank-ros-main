@@ -56,18 +56,21 @@ def generate_launch_description():
                                    "-z","0.3"],
                         output='screen')
 
+    # Process the URDF file
+    pkg_path = os.path.join(get_package_share_directory(package_name))
+    xacro_file = os.path.join(pkg_path,'description','tank.urdf.xacro')
+    # robot_description_config = xacro.process_file(xacro_file).toxml()
+    robot_description_config = Command(['xacro ', xacro_file, ' sim_mode:=true'])
+    
+    # Create a robot_state_publisher node
+    params = {'robot_description': robot_description_config, 'use_sim_time': True}
     robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
         output='screen',
-        parameters=[{
-            'use_sim_time': True,
-            'robot_description': Command(['xacro ', os.path.join(
-                get_package_share_directory(package_name),
-                'description', 'tank.urdf.xacro'
-            )])
-        }]
+        parameters=[params]
     )
+
 
     return LaunchDescription([
         start_gazebo_ros_bridge_cmd,
